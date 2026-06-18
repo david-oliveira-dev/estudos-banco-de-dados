@@ -1,6 +1,10 @@
 # Estudos de Banco de Dados
 
-Repositório dedicado ao estudo de banco de dados, desde os conceitos fundamentais até a prática com SQL. Criado como parte da minha jornada de transição para a área de Ciência de Dados.
+[![CI](https://github.com/david-oliveira-dev/estudos-banco-de-dados/actions/workflows/ci.yml/badge.svg)](https://github.com/david-oliveira-dev/estudos-banco-de-dados/actions/workflows/ci.yml)
+
+Repositório dedicado ao estudo de banco de dados, desde os conceitos fundamentais até a prática com SQL avançado. Criado como parte da minha jornada de transição para a área de Ciência de Dados.
+
+Todo o SQL dos exercícios é **testado automaticamente** com SQLite (ver seção [Testando o SQL](#testando-o-sql)).
 
 ## Sobre mim
 
@@ -41,16 +45,25 @@ estudos-banco-de-dados/
 │   └── scripts/
 │       └── criacao-tabelas-exemplo.sql  ← Banco de loja para praticar
 │
+├── 06-sql-avancado/
+│   ├── subconsultas.md            ← Subqueries: escalar, IN, EXISTS, correlacionada
+│   ├── ctes.md                    ← WITH, CTEs encadeadas e recursivas
+│   ├── views.md                   ← CREATE VIEW, views com agregação
+│   ├── indices-e-performance.md   ← Índices, índice composto, EXPLAIN
+│   ├── funcoes-e-case.md          ← Funções de texto/número/data, COALESCE, CASE
+│   ├── window-functions.md        ← OVER, PARTITION BY, RANK, total acumulado, LAG/LEAD
+│   └── scripts/
+│       └── views-e-indices.sql    ← Views e índices prontos para rodar
+│
 ├── 05-exercicios/
-│   ├── select/
-│   │   ├── exercicio-01.sql
-│   │   └── gabarito-01.sql
-│   ├── joins/
-│   │   ├── exercicio-01.sql
-│   │   └── gabarito-01.sql
-│   └── group-by/
-│       ├── exercicio-01.sql
-│       └── gabarito-01.sql
+│   ├── select/                    ← exercicio-01.sql + gabarito-01.sql
+│   ├── joins/                     ← exercicio-01.sql + gabarito-01.sql
+│   ├── group-by/                  ← exercicio-01.sql + gabarito-01.sql
+│   ├── subconsultas/              ← exercicio-01.sql + gabarito-01.sql
+│   └── avancado/                  ← CTE, views, window functions, CASE
+│
+├── scripts/
+│   └── testar_sql.py              ← Testa todo o SQL com SQLite (usado no CI)
 │
 └── resumos/
     └── sql-cheatsheet.md          ← Referência rápida de todos os comandos
@@ -76,17 +89,31 @@ estudos-banco-de-dados/
 - [x] SQL: JOIN (INNER, LEFT, RIGHT, FULL)
 - [x] SQL: GROUP BY, HAVING, funções de agregação
 - [x] SQL: INSERT, UPDATE, DELETE, transações
-- [ ] Subconsultas (subqueries) e CTEs
-- [ ] Índices e performance
-- [ ] Views e funções
+- [x] Subconsultas (subqueries) e CTEs
+- [x] Índices e performance
+- [x] Views e funções
+- [x] Funções de janela (window functions)
+- [x] Testes automatizados do SQL com SQLite + CI
 
 ## Como usar este repositório
 
-1. Siga a ordem numérica das pastas (01 a 05).
+1. Siga a ordem dos módulos: **01 → 02 → 03 → 04 → 06**, praticando no **05** ao longo do caminho.
 2. Leia os arquivos `.md` antes de abrir os scripts `.sql`.
 3. Tente resolver os exercícios antes de ver o gabarito.
 4. Use `resumos/sql-cheatsheet.md` como referência rápida.
 5. Para praticar, crie o banco com `04-sql-basico/scripts/criacao-tabelas-exemplo.sql`.
+
+## Testando o SQL
+
+Os gabaritos dos exercícios e os scripts de exemplo são executados de verdade
+contra um banco SQLite, para garantir que funcionam. Não precisa instalar nada
+além do Python (o módulo `sqlite3` já vem na biblioteca padrão):
+
+```bash
+python3 scripts/testar_sql.py
+```
+
+Esse mesmo teste roda automaticamente no **GitHub Actions** a cada push.
 
 ## Contato
 

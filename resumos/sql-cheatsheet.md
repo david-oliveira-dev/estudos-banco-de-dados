@@ -126,3 +126,78 @@ SELECT * FROM clientes LIMIT 10;
 -- Paginação
 SELECT * FROM clientes LIMIT 10 OFFSET 20;
 ```
+
+---
+
+# SQL Avançado (módulo 06)
+
+## Subconsultas
+```sql
+-- Escalar (um valor)
+SELECT * FROM produtos WHERE preco > (SELECT AVG(preco) FROM produtos);
+
+-- IN (lista)
+SELECT * FROM clientes WHERE id IN (SELECT cliente_id FROM pedidos);
+
+-- EXISTS (existência)
+SELECT nome FROM clientes c
+WHERE EXISTS (SELECT 1 FROM pedidos p WHERE p.cliente_id = c.id);
+```
+
+## CTE (WITH)
+```sql
+WITH gastos AS (
+    SELECT cliente_id, SUM(total) AS total FROM pedidos GROUP BY cliente_id
+)
+SELECT * FROM gastos WHERE total > 200;
+
+-- Recursiva (sequência 1..5)
+WITH RECURSIVE n(x) AS (
+    SELECT 1 UNION ALL SELECT x + 1 FROM n WHERE x < 5
+)
+SELECT x FROM n;
+```
+
+## Views
+```sql
+CREATE VIEW vw_pedidos AS
+SELECT p.id, c.nome, p.total
+FROM pedidos p JOIN clientes c ON p.cliente_id = c.id;
+
+SELECT * FROM vw_pedidos;       -- usa como tabela
+DROP VIEW IF EXISTS vw_pedidos;
+```
+
+## Índices
+```sql
+CREATE INDEX idx_pedidos_cliente ON pedidos(cliente_id);
+CREATE UNIQUE INDEX idx_email ON clientes(email);
+EXPLAIN QUERY PLAN SELECT * FROM pedidos WHERE cliente_id = 1;  -- SQLite
+```
+
+## CASE e NULL
+```sql
+SELECT nome,
+    CASE WHEN preco >= 1000 THEN 'caro' ELSE 'barato' END AS faixa
+FROM produtos;
+
+SELECT COALESCE(email, 'sem e-mail') FROM clientes;  -- padrão p/ NULL
+```
+
+## Window Functions
+```sql
+-- Média por categoria sem agrupar
+SELECT nome, preco,
+    AVG(preco) OVER (PARTITION BY categoria_id) AS media_cat
+FROM produtos;
+
+-- Ranque dentro do grupo
+ROW_NUMBER() OVER (PARTITION BY categoria_id ORDER BY preco DESC)
+
+-- Total acumulado
+SUM(total) OVER (ORDER BY data_pedido)
+
+-- Linha anterior / seguinte
+LAG(total)  OVER (ORDER BY data_pedido)
+LEAD(total) OVER (ORDER BY data_pedido)
+```

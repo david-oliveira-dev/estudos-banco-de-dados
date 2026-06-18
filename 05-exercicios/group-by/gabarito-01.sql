@@ -45,19 +45,19 @@ GROUP BY c.id, c.nome
 ORDER BY qtd_pedidos DESC
 LIMIT 1;
 
--- 7. Total arrecadado por mês (PostgreSQL).
+-- 7. Total arrecadado por mês (SQLite — roda localmente).
 SELECT
-    EXTRACT(YEAR  FROM data_pedido) AS ano,
-    EXTRACT(MONTH FROM data_pedido) AS mes,
-    COUNT(*)                        AS pedidos,
-    SUM(total)                      AS receita
+    strftime('%Y', data_pedido) AS ano,
+    strftime('%m', data_pedido) AS mes,
+    COUNT(*)                    AS pedidos,
+    SUM(total)                  AS receita
 FROM pedidos
 GROUP BY ano, mes
 ORDER BY ano, mes;
 
--- 7. Total arrecadado por mês (SQLite).
--- SELECT strftime('%Y', data_pedido) AS ano,
---        strftime('%m', data_pedido) AS mes,
+-- 7. Mesma consulta em PostgreSQL / MySQL (usa EXTRACT no lugar de strftime):
+-- SELECT EXTRACT(YEAR  FROM data_pedido) AS ano,
+--        EXTRACT(MONTH FROM data_pedido) AS mes,
 --        COUNT(*) AS pedidos, SUM(total) AS receita
 -- FROM pedidos
 -- GROUP BY ano, mes
