@@ -12,9 +12,9 @@ Pratique com exercícios organizados por tema. Sempre tente resolver antes de ve
 ├── subconsultas/    ← subqueries: IN, EXISTS, correlacionada (módulo 06)
 └── avancado/        ← CTE, views, window functions, CASE (módulo 06)
 
-Cada pasta tem:
-  exercicio-01.sql   ← enunciados
-  gabarito-01.sql    ← respostas
+Cada pasta tem exercícios em níveis (01 = básico, 02 = intermediário):
+  exercicio-NN.sql   ← enunciados
+  gabarito-NN.sql    ← respostas
 ```
 
 ## Como usar
