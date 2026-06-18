@@ -10,7 +10,8 @@ Pratique com exercícios organizados por tema. Sempre tente resolver antes de ve
 ├── joins/           ← INNER/LEFT JOIN (módulo 04)
 ├── group-by/        ← GROUP BY, HAVING, agregação (módulo 04)
 ├── subconsultas/    ← subqueries: IN, EXISTS, correlacionada (módulo 06)
-└── avancado/        ← CTE, views, window functions, CASE (módulo 06)
+├── avancado/        ← CTE, views, window functions, CASE (módulo 06)
+└── desafios/        ← problemas integrativos (JOIN + CTE + window + subquery)
 
 Cada pasta tem exercícios em níveis (01 = básico, 02 = intermediário):
   exercicio-NN.sql   ← enunciados
